@@ -8,13 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const stopPriceInput = document.getElementById('stopPrice');
     const stopPriceGroup = document.getElementById('stopPriceGroup');
     const submitBtn = document.getElementById('submitBtn');
-
     const feedbackContainer = document.getElementById('feedbackContainer');
     const feedbackTitle = document.getElementById('feedbackTitle');
     const feedbackMessage = document.getElementById('feedbackMessage');
     const orderDetails = document.getElementById('orderDetails');
-    
-    // Toggle Price and Stop Price fields based on Order Type
     typeSelect.addEventListener('change', () => {
         if (typeSelect.value === 'LIMIT' || typeSelect.value === 'STOP_LIMIT') {
             priceGroup.style.display = 'block';
@@ -25,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
             priceInput.value = '';
             document.getElementById('priceError').innerText = '';
         }
-
         if (typeSelect.value === 'STOP_LIMIT') {
             stopPriceGroup.style.display = 'block';
             stopPriceInput.required = true;
@@ -37,8 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         validateForm();
     });
-
-    // Inline validation logic
     const validateSymbol = () => {
         const val = symbolInput.value.trim();
         const err = document.getElementById('symbolError');
@@ -53,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
         err.innerText = '';
         return true;
     };
-
     const validateQuantity = () => {
         const val = parseFloat(quantityInput.value);
         const err = document.getElementById('quantityError');
@@ -64,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
         err.innerText = '';
         return true;
     };
-
     const validatePrice = () => {
         if (typeSelect.value !== 'LIMIT' && typeSelect.value !== 'STOP_LIMIT') return true;
         const val = parseFloat(priceInput.value);
@@ -76,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
         err.innerText = '';
         return true;
     };
-
     const validateStopPrice = () => {
         if (typeSelect.value !== 'STOP_LIMIT') return true;
         const val = parseFloat(stopPriceInput.value);
@@ -88,37 +79,26 @@ document.addEventListener('DOMContentLoaded', () => {
         err.innerText = '';
         return true;
     };
-
     const validateForm = () => {
         const isSymbolValid = validateSymbol();
         const isQtyValid = validateQuantity();
         const isPriceValid = validatePrice();
         const isStopPriceValid = validateStopPrice();
-        
         submitBtn.disabled = !(isSymbolValid && isQtyValid && isPriceValid && isStopPriceValid);
     };
-
-    // Attach validation events
     symbolInput.addEventListener('input', () => {
-        symbolInput.value = symbolInput.value.toUpperCase(); // Auto-uppercase
+        symbolInput.value = symbolInput.value.toUpperCase(); 
         validateForm();
     });
     quantityInput.addEventListener('input', validateForm);
     priceInput.addEventListener('input', validateForm);
     stopPriceInput.addEventListener('input', validateForm);
-
-    // Form submission
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
-        // Final check
         if (submitBtn.disabled) return;
-
-        // UI Loading state
         submitBtn.disabled = true;
         submitBtn.innerText = 'Placing Order...';
         hideFeedback();
-
         const payload = {
             symbol: symbolInput.value.trim(),
             side: document.getElementById('side').value,
@@ -127,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
             price: (typeSelect.value === 'LIMIT' || typeSelect.value === 'STOP_LIMIT') ? priceInput.value : null,
             stopPrice: typeSelect.value === 'STOP_LIMIT' ? stopPriceInput.value : null
         };
-
         try {
             const response = await fetch('/api/order', {
                 method: 'POST',
@@ -136,9 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify(payload)
             });
-
             const data = await response.json();
-            
             if (response.ok && data.success) {
                 showSuccess(data.data);
             } else {
@@ -151,31 +128,25 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.innerText = 'Place Order';
         }
     });
-
     function showSuccess(data) {
         feedbackContainer.className = 'feedback success';
         feedbackTitle.innerText = 'Order Successful';
         feedbackMessage.innerText = 'Your order has been placed successfully.';
-        
         orderDetails.classList.remove('hidden');
         document.getElementById('orderId').innerText = data.orderId || 'N/A';
         document.getElementById('orderStatus').innerText = data.status || 'N/A';
         document.getElementById('orderQty').innerText = data.executedQty || 'N/A';
         document.getElementById('orderAvgPrice').innerText = data.avgPrice || data.price || 'N/A';
     }
-
     function showError(message) {
         feedbackContainer.className = 'feedback error';
         feedbackTitle.innerText = 'Order Failed';
         feedbackMessage.innerText = message;
         orderDetails.classList.add('hidden');
     }
-
     function hideFeedback() {
         feedbackContainer.className = 'feedback hidden';
         orderDetails.classList.add('hidden');
     }
-
-    // Initial validation check (in case browser auto-fills)
     validateForm();
 });

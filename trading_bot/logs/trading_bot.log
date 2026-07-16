@@ -30,3 +30,11 @@
 2026-07-16 09:10:06,293 - trading_bot - INFO - Sending STOP_LIMIT order request: BUY 0.001 BTCUSDT at limit 50000.0, stop 51000.0
 2026-07-16 09:10:07,548 - trading_bot - ERROR - API Exception (STOP_LIMIT): 401 - API-key format invalid.
 2026-07-16 09:10:07,548 - trading_bot - ERROR - OrderService: Failed to execute STOP_LIMIT order. Error: APIError(code=-2014): API-key format invalid.
+2026-07-16 13:25:59,903 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 13:26:00,603 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 13:26:19,446 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 13:26:19,446 - trading_bot - INFO - OrderService: Validating MARKET order for 0.001 BTC (BUY)
+2026-07-16 13:26:19,446 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 13:26:19,446 - trading_bot - INFO - Sending MARKET order request: BUY 0.001 BTC
+2026-07-16 13:26:20,824 - trading_bot - ERROR - API Exception (MARKET): 401 - API-key format invalid.
+2026-07-16 13:26:20,828 - trading_bot - ERROR - OrderService: Failed to execute MARKET order. Error: APIError(code=-2014): API-key format invalid.
