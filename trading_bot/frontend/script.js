@@ -133,10 +133,22 @@ document.addEventListener('DOMContentLoaded', () => {
         feedbackTitle.innerText = 'Order Successful';
         feedbackMessage.innerText = 'Your order has been placed successfully.';
         orderDetails.classList.remove('hidden');
-        document.getElementById('orderId').innerText = data.orderId || 'N/A';
-        document.getElementById('orderStatus').innerText = data.status || 'N/A';
-        document.getElementById('orderQty').innerText = data.executedQty || 'N/A';
+        
+        const isStopOrder = !!data.algoId;
+        
+        document.getElementById('orderId').innerText = data.orderId || data.algoId || 'N/A';
+        document.getElementById('orderStatus').innerText = data.status || data.algoStatus || 'N/A';
+        document.getElementById('orderOrigQty').innerText = data.origQty || data.quantity || 'N/A';
+        document.getElementById('orderQty').innerText = data.executedQty || (isStopOrder ? '0' : 'N/A');
         document.getElementById('orderAvgPrice').innerText = data.avgPrice || data.price || 'N/A';
+        
+        const stopPriceRow = document.getElementById('stopPriceRow');
+        if (data.triggerPrice) {
+            document.getElementById('orderStopPrice').innerText = data.triggerPrice;
+            stopPriceRow.style.display = 'block';
+        } else {
+            stopPriceRow.style.display = 'none';
+        }
     }
     function showError(message) {
         feedbackContainer.className = 'feedback error';

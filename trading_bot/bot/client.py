@@ -63,8 +63,17 @@ class BinanceClient:
                 symbol=symbol,
                 side=side,
                 type='MARKET',
-                quantity=quantity
+                quantity=quantity,
+                newOrderRespType='RESULT'
             )
+            
+            if 'avgPrice' not in response or float(response.get('avgPrice', 0)) == 0:
+                order_id = response.get('orderId')
+                if order_id:
+                    fetched = self.client.futures_get_order(symbol=symbol, orderId=order_id)
+                    if 'avgPrice' in fetched:
+                        response['avgPrice'] = fetched['avgPrice']
+                        
             logger.info(f"MARKET order successful. Response: {response}")
             return response
         except Exception as e:

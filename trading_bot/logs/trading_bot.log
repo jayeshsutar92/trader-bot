@@ -90,3 +90,108 @@
 2026-07-16 19:39:17,246 - trading_bot - INFO - Sending MARKET order request: BUY 1e-05 BTCUSDT
 2026-07-16 19:39:17,886 - trading_bot - ERROR - API Exception (MARKET): 400 - Mandatory parameter 'quantity' was not sent, was empty/null, or malformed.
 2026-07-16 19:39:17,886 - trading_bot - ERROR - OrderService: Failed to execute MARKET order. Error: APIError(code=-1102): Mandatory parameter 'quantity' was not sent, was empty/null, or malformed.
+2026-07-16 20:02:58,851 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 20:02:59,596 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 20:03:12,487 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 20:03:12,487 - trading_bot - INFO - OrderService: Validating MARKET order for 0.001 BTCUSDT (BUY)
+2026-07-16 20:03:12,487 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 20:03:12,487 - trading_bot - INFO - Sending MARKET order request: BUY 0.001 BTCUSDT
+2026-07-16 20:03:13,153 - trading_bot - INFO - MARKET order successful. Response: {'orderId': 22118732839, 'symbol': 'BTCUSDT', 'status': 'NEW', 'clientOrderId': 'x-Cb7ytekJ9ad607367d4ab925cf4f41', 'price': '0.00', 'origQty': '0.0010', 'executedQty': '0.0000', 'cumQty': '0.0000', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'BUY', 'positionSide': 'BOTH', 'stopPrice': '0.00', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'EXPIRE_MAKER', 'goodTillDate': 0, 'updateTime': 1784212393865}
+2026-07-16 20:03:29,872 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 20:03:29,872 - trading_bot - INFO - OrderService: Validating MARKET order for 0.001 BTCUSDT (SELL)
+2026-07-16 20:03:29,872 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 20:03:29,872 - trading_bot - INFO - Sending MARKET order request: SELL 0.001 BTCUSDT
+2026-07-16 20:03:30,452 - trading_bot - INFO - MARKET order successful. Response: {'orderId': 22118769438, 'symbol': 'BTCUSDT', 'status': 'NEW', 'clientOrderId': 'x-Cb7ytekJdd07a79cdaf44ffbdab7e5', 'price': '0.00', 'origQty': '0.0010', 'executedQty': '0.0000', 'cumQty': '0.0000', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'SELL', 'positionSide': 'BOTH', 'stopPrice': '0.00', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'EXPIRE_MAKER', 'goodTillDate': 0, 'updateTime': 1784212411176}
+2026-07-16 20:04:13,000 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 20:04:13,000 - trading_bot - INFO - OrderService: Validating LIMIT order for 0.001 BTCUSDT (SELL) at 500.0
+2026-07-16 20:04:13,000 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 20:04:13,000 - trading_bot - INFO - Sending LIMIT order request: SELL 0.001 BTCUSDT at 500.0
+2026-07-16 20:04:13,610 - trading_bot - ERROR - API Exception (LIMIT): 400 - Limit price can't be lower than 61439.59.
+2026-07-16 20:04:13,610 - trading_bot - ERROR - OrderService: Failed to execute LIMIT order. Error: APIError(code=-4024): Limit price can't be lower than 61439.59.
+2026-07-16 20:04:20,472 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 20:04:20,472 - trading_bot - INFO - OrderService: Validating LIMIT order for 1.0 BTCUSDT (SELL) at 500.0
+2026-07-16 20:04:20,472 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 20:04:20,472 - trading_bot - INFO - Sending LIMIT order request: SELL 1.0 BTCUSDT at 500.0
+2026-07-16 20:04:20,980 - trading_bot - ERROR - API Exception (LIMIT): 400 - Limit price can't be lower than 61458.57.
+2026-07-16 20:04:20,980 - trading_bot - ERROR - OrderService: Failed to execute LIMIT order. Error: APIError(code=-4024): Limit price can't be lower than 61458.57.
+2026-07-16 20:04:24,517 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 20:04:24,517 - trading_bot - INFO - OrderService: Validating LIMIT order for 1.0 BTCUSDT (SELL) at 50000.0
+2026-07-16 20:04:24,517 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 20:04:24,517 - trading_bot - INFO - Sending LIMIT order request: SELL 1.0 BTCUSDT at 50000.0
+2026-07-16 20:04:25,126 - trading_bot - ERROR - API Exception (LIMIT): 400 - Limit price can't be lower than 61462.72.
+2026-07-16 20:04:25,126 - trading_bot - ERROR - OrderService: Failed to execute LIMIT order. Error: APIError(code=-4024): Limit price can't be lower than 61462.72.
+2026-07-16 20:08:05,633 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 20:08:06,391 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 20:08:23,356 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 20:08:23,356 - trading_bot - INFO - OrderService: Validating MARKET order for 0.001 BTCUSDT (SELL)
+2026-07-16 20:08:23,356 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 20:08:23,356 - trading_bot - INFO - Sending MARKET order request: SELL 0.001 BTCUSDT
+2026-07-16 20:08:23,901 - trading_bot - INFO - MARKET order successful. Response: {'orderId': 22119445519, 'symbol': 'BTCUSDT', 'status': 'FILLED', 'clientOrderId': 'x-Cb7ytekJde98efabbe03ea148d6610', 'price': '0.00', 'origQty': '0.0010', 'executedQty': '0.0010', 'cumQty': '0.0010', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'SELL', 'positionSide': 'BOTH', 'stopPrice': '0.00', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'EXPIRE_MAKER', 'goodTillDate': 0, 'updateTime': 1784212704631}
+2026-07-16 20:09:01,659 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 20:09:01,659 - trading_bot - INFO - OrderService: Validating MARKET order for 0.001 BTCUSDT (BUY)
+2026-07-16 20:09:01,659 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 20:09:01,659 - trading_bot - INFO - Sending MARKET order request: BUY 0.001 BTCUSDT
+2026-07-16 20:09:02,490 - trading_bot - INFO - MARKET order successful. Response: {'orderId': 22119540011, 'symbol': 'BTCUSDT', 'status': 'FILLED', 'clientOrderId': 'x-Cb7ytekJ223449eb3abeb1b07db59e', 'price': '0.00', 'origQty': '0.0010', 'executedQty': '0.0010', 'cumQty': '0.0010', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'BUY', 'positionSide': 'BOTH', 'stopPrice': '0.00', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'EXPIRE_MAKER', 'goodTillDate': 0, 'updateTime': 1784212743226}
+2026-07-16 20:12:25,177 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 20:12:25,955 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 20:12:39,806 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 20:12:39,806 - trading_bot - INFO - OrderService: Validating MARKET order for 0.001 BTCUSDT (BUY)
+2026-07-16 20:12:39,806 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 20:12:39,806 - trading_bot - INFO - Sending MARKET order request: BUY 0.001 BTCUSDT
+2026-07-16 20:12:40,789 - trading_bot - INFO - MARKET order successful. Response: {'orderId': 22120026701, 'symbol': 'BTCUSDT', 'status': 'FILLED', 'clientOrderId': 'x-Cb7ytekJae983c7cf4ca4e48df77dc', 'price': '0.00', 'origQty': '0.0010', 'executedQty': '0.0010', 'cumQty': '0.0010', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'BUY', 'positionSide': 'BOTH', 'stopPrice': '0.00', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'EXPIRE_MAKER', 'goodTillDate': 0, 'updateTime': 1784212961196, 'avgPrice': '64685.110000'}
+2026-07-16 20:14:06,368 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 20:14:06,368 - trading_bot - INFO - OrderService: Validating MARKET order for 0.001 BTCUSDT (SELL)
+2026-07-16 20:14:06,368 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 20:14:06,368 - trading_bot - INFO - Sending MARKET order request: SELL 0.001 BTCUSDT
+2026-07-16 20:14:07,600 - trading_bot - INFO - MARKET order successful. Response: {'orderId': 22120211316, 'symbol': 'BTCUSDT', 'status': 'FILLED', 'clientOrderId': 'x-Cb7ytekJ668a9f1ca41eaf7f2a2b9b', 'price': '0.00', 'origQty': '0.0010', 'executedQty': '0.0010', 'cumQty': '0.0010', 'timeInForce': 'GTC', 'type': 'MARKET', 'reduceOnly': False, 'closePosition': False, 'side': 'SELL', 'positionSide': 'BOTH', 'stopPrice': '0.00', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'MARKET', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'EXPIRE_MAKER', 'goodTillDate': 0, 'updateTime': 1784213047837, 'avgPrice': '64677.000000'}
+2026-07-16 20:14:18,096 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 20:14:18,096 - trading_bot - INFO - OrderService: Validating LIMIT order for 0.001 BTCUSDT (SELL) at 0.01
+2026-07-16 20:14:18,096 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 20:14:18,096 - trading_bot - INFO - Sending LIMIT order request: SELL 0.001 BTCUSDT at 0.01
+2026-07-16 20:14:18,689 - trading_bot - ERROR - API Exception (LIMIT): 400 - Price less than min price.
+2026-07-16 20:14:18,689 - trading_bot - ERROR - OrderService: Failed to execute LIMIT order. Error: APIError(code=-4013): Price less than min price.
+2026-07-16 20:14:26,201 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 20:14:26,202 - trading_bot - INFO - OrderService: Validating LIMIT order for 0.001 BTCUSDT (BUY) at 0.01
+2026-07-16 20:14:26,202 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 20:14:26,202 - trading_bot - INFO - Sending LIMIT order request: BUY 0.001 BTCUSDT at 0.01
+2026-07-16 20:14:26,735 - trading_bot - ERROR - API Exception (LIMIT): 400 - Price less than min price.
+2026-07-16 20:14:26,735 - trading_bot - ERROR - OrderService: Failed to execute LIMIT order. Error: APIError(code=-4013): Price less than min price.
+2026-07-16 20:15:14,912 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 20:15:14,912 - trading_bot - INFO - OrderService: Validating LIMIT order for 0.001 BTCUSDT (BUY) at 64000.0
+2026-07-16 20:15:14,912 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 20:15:14,912 - trading_bot - INFO - Sending LIMIT order request: BUY 0.001 BTCUSDT at 64000.0
+2026-07-16 20:15:15,661 - trading_bot - INFO - LIMIT order successful. Response: {'orderId': 22120361904, 'symbol': 'BTCUSDT', 'status': 'NEW', 'clientOrderId': 'x-Cb7ytekJde34d4fec81842b9e1b91', 'price': '64000.00', 'origQty': '0.0010', 'executedQty': '0.0000', 'cumQty': '0.0000', 'timeInForce': 'GTC', 'type': 'LIMIT', 'reduceOnly': False, 'closePosition': False, 'side': 'BUY', 'positionSide': 'BOTH', 'stopPrice': '0.00', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'LIMIT', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'EXPIRE_MAKER', 'goodTillDate': 0, 'updateTime': 1784213116361}
+2026-07-16 20:16:29,663 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 20:16:29,663 - trading_bot - INFO - OrderService: Validating LIMIT order for 0.001 BTCUSDT (SELL) at 64000.0
+2026-07-16 20:16:29,663 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 20:16:29,663 - trading_bot - INFO - Sending LIMIT order request: SELL 0.001 BTCUSDT at 64000.0
+2026-07-16 20:16:30,778 - trading_bot - INFO - LIMIT order successful. Response: {'orderId': 22120535520, 'symbol': 'BTCUSDT', 'status': 'NEW', 'clientOrderId': 'x-Cb7ytekJ86bdbff68bd048fe3ef699', 'price': '64000.00', 'origQty': '0.0010', 'executedQty': '0.0000', 'cumQty': '0.0000', 'timeInForce': 'GTC', 'type': 'LIMIT', 'reduceOnly': False, 'closePosition': False, 'side': 'SELL', 'positionSide': 'BOTH', 'stopPrice': '0.00', 'workingType': 'CONTRACT_PRICE', 'priceProtect': False, 'origType': 'LIMIT', 'priceMatch': 'NONE', 'selfTradePreventionMode': 'EXPIRE_MAKER', 'goodTillDate': 0, 'updateTime': 1784213191347}
+2026-07-16 20:16:40,797 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 20:16:40,797 - trading_bot - INFO - OrderService: Validating STOP_LIMIT order for 0.001 BTCUSDT (SELL) at limit 64000.0, stop 51000.0
+2026-07-16 20:16:40,797 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 20:16:40,798 - trading_bot - INFO - Sending STOP_LIMIT order request: SELL 0.001 BTCUSDT at limit 64000.0, stop 51000.0
+2026-07-16 20:16:42,634 - trading_bot - INFO - STOP_LIMIT order successful. Response: {'algoId': 1000000137544770, 'clientAlgoId': 'x-Cb7ytekJ5a2c583dc29f58906ceecb', 'algoType': 'CONDITIONAL', 'orderType': 'STOP', 'symbol': 'BTCUSDT', 'side': 'SELL', 'positionSide': 'BOTH', 'timeInForce': 'GTC', 'quantity': '0.0010', 'algoStatus': 'NEW', 'triggerPrice': '51000.00', 'price': '64000.00', 'icebergQuantity': None, 'selfTradePreventionMode': 'EXPIRE_MAKER', 'workingType': 'CONTRACT_PRICE', 'priceMatch': 'NONE', 'closePosition': False, 'priceProtect': False, 'reduceOnly': False, 'createTime': 1784213203140, 'updateTime': 1784213203144, 'triggerTime': 0, 'goodTillDate': 0}
+2026-07-16 20:18:57,212 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 20:18:57,942 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 20:19:17,650 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 20:19:17,650 - trading_bot - INFO - OrderService: Validating STOP_LIMIT order for 0.001 BTCUSDT (BUY) at limit 64000.0, stop 51000.0
+2026-07-16 20:19:17,650 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 20:19:17,651 - trading_bot - INFO - Sending STOP_LIMIT order request: BUY 0.001 BTCUSDT at limit 64000.0, stop 51000.0
+2026-07-16 20:19:18,427 - trading_bot - ERROR - API Exception (STOP_LIMIT): 400 - Limit price can't be higher than 53550
+2026-07-16 20:19:18,427 - trading_bot - ERROR - OrderService: Failed to execute STOP_LIMIT order. Error: APIError(code=-4183): Limit price can't be higher than 53550
+2026-07-16 20:19:29,177 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 20:19:29,177 - trading_bot - INFO - OrderService: Validating STOP_LIMIT order for 0.001 BTCUSDT (BUY) at limit 50000.0, stop 51000.0
+2026-07-16 20:19:29,178 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 20:19:29,178 - trading_bot - INFO - Sending STOP_LIMIT order request: BUY 0.001 BTCUSDT at limit 50000.0, stop 51000.0
+2026-07-16 20:19:29,708 - trading_bot - ERROR - API Exception (STOP_LIMIT): 400 - Order would immediately trigger.
+2026-07-16 20:19:29,708 - trading_bot - ERROR - OrderService: Failed to execute STOP_LIMIT order. Error: APIError(code=-2021): Order would immediately trigger.
+2026-07-16 20:22:25,760 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 20:22:25,760 - trading_bot - INFO - OrderService: Validating STOP_LIMIT order for 0.001 BTCUSDT (BUY) at limit 65000.0, stop 65050.0
+2026-07-16 20:22:25,760 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 20:22:25,760 - trading_bot - INFO - Sending STOP_LIMIT order request: BUY 0.001 BTCUSDT at limit 65000.0, stop 65050.0
+2026-07-16 20:22:26,371 - trading_bot - INFO - STOP_LIMIT order successful. Response: {'algoId': 1000000137547975, 'clientAlgoId': 'x-Cb7ytekJ556e455aa98e5b9bec70e9', 'algoType': 'CONDITIONAL', 'orderType': 'STOP', 'symbol': 'BTCUSDT', 'side': 'BUY', 'positionSide': 'BOTH', 'timeInForce': 'GTC', 'quantity': '0.0010', 'algoStatus': 'NEW', 'triggerPrice': '65050.00', 'price': '65000.00', 'icebergQuantity': None, 'selfTradePreventionMode': 'EXPIRE_MAKER', 'workingType': 'CONTRACT_PRICE', 'priceMatch': 'NONE', 'closePosition': False, 'priceProtect': False, 'reduceOnly': False, 'createTime': 1784213547108, 'updateTime': 1784213547108, 'triggerTime': 0, 'goodTillDate': 0}
+2026-07-16 20:22:59,675 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 20:22:59,675 - trading_bot - INFO - OrderService: Validating STOP_LIMIT order for 0.001 BTCUSDT (SELL) at limit 64000.0, stop 63950.0
+2026-07-16 20:22:59,675 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 20:22:59,675 - trading_bot - INFO - Sending STOP_LIMIT order request: SELL 0.001 BTCUSDT at limit 64000.0, stop 63950.0
+2026-07-16 20:23:00,214 - trading_bot - INFO - STOP_LIMIT order successful. Response: {'algoId': 1000000137548269, 'clientAlgoId': 'x-Cb7ytekJd68742a4ae69beb067c0c', 'algoType': 'CONDITIONAL', 'orderType': 'STOP', 'symbol': 'BTCUSDT', 'side': 'SELL', 'positionSide': 'BOTH', 'timeInForce': 'GTC', 'quantity': '0.0010', 'algoStatus': 'NEW', 'triggerPrice': '63950.00', 'price': '64000.00', 'icebergQuantity': None, 'selfTradePreventionMode': 'EXPIRE_MAKER', 'workingType': 'CONTRACT_PRICE', 'priceMatch': 'NONE', 'closePosition': False, 'priceProtect': False, 'reduceOnly': False, 'createTime': 1784213580945, 'updateTime': 1784213580945, 'triggerTime': 0, 'goodTillDate': 0}
