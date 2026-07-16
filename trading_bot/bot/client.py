@@ -46,6 +46,16 @@ class BinanceClient:
             
         raise e
 
+    def test_authentication(self) -> dict:
+        logger.info("Testing authentication with Binance Futures Testnet...")
+        try:
+            account_info = self.client.futures_account()
+            logger.info("Authentication successful.")
+            return {"success": True, "data": account_info}
+        except Exception as e:
+            self._handle_exception(e, "AUTH_TEST")
+
+
     def place_market_order(self, symbol: str, side: str, quantity: float) -> dict:
         logger.info(f"Sending MARKET order request: {side} {quantity} {symbol}")
         try:

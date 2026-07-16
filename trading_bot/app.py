@@ -21,6 +21,21 @@ def static_files(path):
     return send_from_directory(app.static_folder, path)
 
 
+@app.route('/api/test-auth', methods=['GET'])
+def test_auth():
+    try:
+        client = BinanceClient()
+        response = client.test_authentication()
+        return jsonify(response), 200
+    except Exception as e:
+        logger.error(f"Authentication test failed: {e}")
+        return jsonify({
+            "success": False, 
+            "error": str(e),
+            "type": type(e).__name__
+        }), 401
+
+
 @app.route('/api/order', methods=['POST'])
 def place_order():
     data = request.json

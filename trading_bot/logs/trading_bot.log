@@ -38,3 +38,55 @@
 2026-07-16 13:26:19,446 - trading_bot - INFO - Sending MARKET order request: BUY 0.001 BTC
 2026-07-16 13:26:20,824 - trading_bot - ERROR - API Exception (MARKET): 401 - API-key format invalid.
 2026-07-16 13:26:20,828 - trading_bot - ERROR - OrderService: Failed to execute MARKET order. Error: APIError(code=-2014): API-key format invalid.
+2026-07-16 19:02:46,386 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 19:02:47,828 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 19:03:48,226 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 19:03:48,226 - trading_bot - INFO - OrderService: Validating MARKET order for 0.001 BTCUSDT (BUY)
+2026-07-16 19:03:48,226 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 19:03:48,226 - trading_bot - INFO - Sending MARKET order request: BUY 0.001 BTCUSDT
+2026-07-16 19:03:49,707 - trading_bot - ERROR - API Exception (MARKET): 401 - Invalid API-key, IP, or permissions for action
+2026-07-16 19:03:49,707 - trading_bot - ERROR - OrderService: Failed to execute MARKET order. Error: APIError(code=-2015): Invalid API-key, IP, or permissions for action
+2026-07-16 19:04:34,140 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 19:04:35,458 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 19:04:54,913 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 19:04:54,914 - trading_bot - INFO - OrderService: Validating MARKET order for 0.001 BTCUSDT (BUY)
+2026-07-16 19:04:54,914 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 19:04:54,914 - trading_bot - INFO - Sending MARKET order request: BUY 0.001 BTCUSDT
+2026-07-16 19:04:56,090 - trading_bot - ERROR - API Exception (MARKET): 401 - Invalid API-key, IP, or permissions for action
+2026-07-16 19:04:56,090 - trading_bot - ERROR - OrderService: Failed to execute MARKET order. Error: APIError(code=-2015): Invalid API-key, IP, or permissions for action
+2026-07-16 19:26:40,326 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 19:26:41,749 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 19:26:57,531 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 19:26:57,531 - trading_bot - INFO - OrderService: Validating MARKET order for 0.001 BTCUSDT (BUY)
+2026-07-16 19:26:57,531 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 19:26:57,531 - trading_bot - INFO - Sending MARKET order request: BUY 0.001 BTCUSDT
+2026-07-16 19:26:58,987 - trading_bot - ERROR - API Exception (MARKET): 401 - Invalid API-key, IP, or permissions for action
+2026-07-16 19:26:58,987 - trading_bot - ERROR - OrderService: Failed to execute MARKET order. Error: APIError(code=-2015): Invalid API-key, IP, or permissions for action
+2026-07-16 19:27:36,608 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 19:27:36,608 - trading_bot - INFO - OrderService: Validating MARKET order for 0.001 BTCUSDT (SELL)
+2026-07-16 19:27:36,608 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 19:27:36,608 - trading_bot - INFO - Sending MARKET order request: SELL 0.001 BTCUSDT
+2026-07-16 19:27:37,561 - trading_bot - ERROR - API Exception (MARKET): 401 - Invalid API-key, IP, or permissions for action
+2026-07-16 19:27:37,562 - trading_bot - ERROR - OrderService: Failed to execute MARKET order. Error: APIError(code=-2015): Invalid API-key, IP, or permissions for action
+2026-07-16 19:29:57,455 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 19:29:58,171 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 19:30:14,979 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 19:30:14,980 - trading_bot - INFO - OrderService: Validating MARKET order for 0.001 BTCUSDT (BUY)
+2026-07-16 19:30:14,980 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 19:30:14,980 - trading_bot - INFO - Sending MARKET order request: BUY 0.001 BTCUSDT
+2026-07-16 19:30:15,609 - trading_bot - ERROR - API Exception (MARKET): 401 - Invalid API-key, IP, or permissions for action
+2026-07-16 19:30:15,610 - trading_bot - ERROR - OrderService: Failed to execute MARKET order. Error: APIError(code=-2015): Invalid API-key, IP, or permissions for action
+2026-07-16 19:37:58,167 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 19:37:58,902 - trading_bot - INFO - Starting Flask Web UI...
+2026-07-16 19:38:13,498 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 19:38:13,498 - trading_bot - INFO - OrderService: Validating MARKET order for 0.001 BTCUSDT (BUY)
+2026-07-16 19:38:13,498 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 19:38:13,498 - trading_bot - INFO - Sending MARKET order request: BUY 0.001 BTCUSDT
+2026-07-16 19:38:14,219 - trading_bot - ERROR - API Exception (MARKET): 400 - Margin is insufficient.
+2026-07-16 19:38:14,219 - trading_bot - ERROR - OrderService: Failed to execute MARKET order. Error: APIError(code=-2019): Margin is insufficient.
+2026-07-16 19:39:17,246 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 19:39:17,246 - trading_bot - INFO - OrderService: Validating MARKET order for 1e-05 BTCUSDT (BUY)
+2026-07-16 19:39:17,246 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 19:39:17,246 - trading_bot - INFO - Sending MARKET order request: BUY 1e-05 BTCUSDT
+2026-07-16 19:39:17,886 - trading_bot - ERROR - API Exception (MARKET): 400 - Mandatory parameter 'quantity' was not sent, was empty/null, or malformed.
+2026-07-16 19:39:17,886 - trading_bot - ERROR - OrderService: Failed to execute MARKET order. Error: APIError(code=-1102): Mandatory parameter 'quantity' was not sent, was empty/null, or malformed.
