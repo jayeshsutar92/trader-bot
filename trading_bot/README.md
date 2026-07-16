@@ -1,39 +1,87 @@
-# Binance Trading Bot
+# Binance Futures Trading Bot
 
-A simple, structured command-line trading bot for Binance.
-This project focuses on clean architecture by separating API communication, business logic, parameter validation, and CLI components.
+## Project Overview
+This project is a clean, structured command-line interface (CLI) application for executing trading orders on the Binance Futures Testnet. Built with pure Python, it emphasizes separation of concerns, clean architecture, and readability. It includes dedicated modules for API communication, business logic orchestration, robust input validation, and centralized logging.
+
+## Prerequisites
+- Python 3.8+
+- An active internet connection
+- A Binance Futures Testnet account (for generating API keys)
 
 ## Project Structure
-
-- `bot/client.py`: Handles direct communication with the Binance API.
-- `bot/orders.py`: Contains business logic for orchestrating order execution.
-- `bot/validators.py`: Handles parameter validation for commands.
-- `bot/logging_config.py`: Sets up application logging to write to `logs/trading_bot.log`.
-- `bot/cli.py`: The command-line interface entry point.
+```text
+trading_bot/
+│
+├── bot/
+│   ├── __init__.py         # Package initialization
+│   ├── cli.py              # Command-line interface entry point
+│   ├── client.py           # Direct communication with Binance API
+│   ├── logging_config.py   # Centralized logging setup
+│   ├── orders.py           # Business logic for order execution
+│   └── validators.py       # Input validation rules
+│
+├── logs/                   # Directory containing application logs (auto-generated)
+├── .env                    # Secret environment variables (ignored in version control)
+├── .env.example            # Template for environment variables
+├── requirements.txt        # Project dependencies
+└── README.md               # Project documentation
+```
 
 ## Installation
 
-1. Create a virtual environment and activate it:
+1. Clone the repository and navigate to the project directory:
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows use: venv\Scripts\activate
+   cd trading_bot
    ```
 
-2. Install the project dependencies:
+2. Create a virtual environment and activate it:
+   ```bash
+   # On macOS / Linux
+   python -m venv venv
+   source venv/bin/activate
+   
+   # On Windows
+   python -m venv venv
+   .\venv\Scripts\activate
+   ```
+
+3. Install the required dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Setup environment variables by creating a `.env` file for your API credentials (to be used later).
+## Environment Setup
+The application reads sensitive credentials from a `.env` file to ensure security. 
 
-## Running the Bot
+1. Create a copy of the example environment file:
+   ```bash
+   cp .env.example .env
+   ```
+2. Open the `.env` file and replace the placeholder text with your actual Binance Futures Testnet API Key and Secret.
 
-Run the CLI module passing in the required arguments:
+## CLI Usage
 
+The bot is executed from the command line by running the `bot.cli` module. It accepts the following arguments:
+
+- `--symbol`: The trading pair symbol (e.g., BTCUSDT). **Required**.
+- `--side`: The order side (BUY or SELL). **Required**.
+- `--type`: The order type (MARKET or LIMIT). **Required**.
+- `--quantity`: The amount of the asset to trade. Must be greater than 0. **Required**.
+- `--price`: The limit price. **Required** only if the type is LIMIT.
+
+### Example MARKET Command
+Execute an immediate market order:
 ```bash
-# Example for a Market Order
 python -m bot.cli --symbol BTCUSDT --side BUY --type MARKET --quantity 0.001
+```
 
-# Example for a Limit Order
+### Example LIMIT Command
+Place a limit order at a specific price:
+```bash
 python -m bot.cli --symbol BTCUSDT --side BUY --type LIMIT --quantity 0.001 --price 50000
 ```
+
+## Assumptions
+- **Environment:** The script assumes it is being run against the Binance Futures Testnet, not the live production network.
+- **Order Details:** All limit orders are automatically submitted as Good-Til-Cancelled (`GTC`) to align with standard Futures behavior.
+- **Python Setup:** The end user is familiar with creating virtual environments and passing command line arguments.

@@ -6,8 +6,7 @@ import argparse
 import sys
 import os
 
-# Add the parent directory to sys.path so 'bot' package is recognized
-# when running cli.py directly as a script.
+# Ensure the 'bot' package can be found when executing this file directly
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from bot.client import BinanceClient
@@ -17,7 +16,7 @@ from bot.validators import OrderValidator
 
 def main():
     """
-    Main entry point for parsing arguments and initializing bot components.
+    Main entry point for parsing arguments, validating inputs, and executing orders.
     """
     parser = argparse.ArgumentParser(description="Binance Trading Bot CLI")
     
@@ -29,47 +28,86 @@ def main():
     
     args = parser.parse_args()
     
-    # Instantiate the logger
+    # Initialize components
     logger = setup_logger()
-    
-    # Instantiate the validator
     validator = OrderValidator()
-    
-    # Perform validation on the inputs
-    if not validator.validate_symbol(args.symbol):
-        logger.error(f"Invalid symbol: {args.symbol}")
-        print("Error: Invalid symbol provided.")
-        return
-        
-    if not validator.validate_side(args.side):
-        logger.error(f"Invalid side: {args.side}")
-        print("Error: Invalid side provided.")
-        return
-        
-    if not validator.validate_order_type(args.type):
-        logger.error(f"Invalid order type: {args.type}")
-        print("Error: Invalid order type provided.")
-        return
-        
-    if not validator.validate_quantity(args.quantity):
-        logger.error(f"Invalid quantity: {args.quantity}")
-        print("Error: Invalid quantity provided.")
-        return
-        
-    if args.type == "LIMIT":
-        if args.price is None or not validator.validate_price(args.price):
-            logger.error("Limit order requires a valid price.")
-            print("Error: Limit order requires a valid price.")
-            return
 
-    # Instantiate API client and order service (using placeholders for credentials)
-    api_key = "placeholder_key"
-    api_secret = "placeholder_secret"
+    # 1. Print Request Summary
+    print("\n--- Order Request Summary ---")
+    print(f"Symbol:   {args.symbol}")
+    print(f"Side:     {args.side}")
+    print(f"Type:     {args.type}")
+    print(f"Quantity: {args.quantity}")
+    if args.type == "LIMIT":
+        print(f"Price:    {args.price}")
+    print("-----------------------------\n")
+
+    logger.info("Initializing trading bot CLI...")
+
+    # 2. Input Validation
+    try:
+        validator.validate_symbol(args.symbol)
+        validator.validate_side(args.side)
+        validator.validate_order_type(args.type)
+        validator.validate_quantity(args.quantity)
+        if args.type == "LIMIT":
+            validator.validate_price(args.price)
+    except ValueError as e:
+        logger.error(f"Validation Error: {e}")
+        print(f"Validation Error: {e}")
+        return
+
+    # 3. Instantiate Client and Service
+    try:
+        client = BinanceClient()
+        order_service = OrderService(client)
+    except Exception as e:
+        logger.error(f"Initialization Error: {e}")
+        print(f"Initialization Error: {e}")
+        return
     
-    client = BinanceClient(api_key=api_key, api_secret=api_secret, testnet=True)
-    order_service = OrderService(client)
-    
-    print("Project scaffold initialized.")
+    # 4. Execute Order
+    print("Executing order...\n")
+    try:
+        if args.type == "MARKET":
+            response = order_service.execute_market_order(
+                symbol=args.symbol,
+                side=args.side,
+                quantity=args.quantity
+            )
+        else:
+            response = order_service.execute_limit_order(
+                symbol=args.symbol,
+                side=args.side,
+                quantity=args.quantity,
+                price=args.price
+            )
+        
+        # 5. Print Response
+        if response.get("success"):
+            data = response.get("data", {})
+            print("=== Order Successful ===")
+            print(f"Order ID:    {data.get('orderId', 'N/A')}")
+            print(f"Status:      {data.get('status', 'N/A')}")
+            print(f"ExecutedQty: {data.get('executedQty', 'N/A')}")
+            # Use avgPrice if available, fallback to price
+            avg_price = data.get('avgPrice', data.get('price', 'N/A'))
+            print(f"Avg Price:   {avg_price}")
+            print("========================")
+            logger.info(f"Order completed successfully. Order ID: {data.get('orderId')}")
+        else:
+            error_msg = response.get("error", "Unknown error occurred.")
+            print("=== Order Failed ===")
+            print(f"Reason: {error_msg}")
+            print("====================")
+            logger.error(f"Order failed: {error_msg}")
+
+    except Exception as e:
+        logger.error(f"Unexpected execution error: {e}")
+        print("=== Order Failed ===")
+        print(f"Unexpected Error: {e}")
+        print("====================")
+
 
 if __name__ == "__main__":
     main()

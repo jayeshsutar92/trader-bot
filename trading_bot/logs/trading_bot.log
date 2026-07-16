@@ -1,0 +1,16 @@
+2026-07-16 08:47:25,057 - trading_bot - INFO - Initializing trading bot CLI...
+2026-07-16 08:47:26,314 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 08:47:26,315 - trading_bot - INFO - OrderService: Validating MARKET order for 0.001 BTCUSDT (BUY)
+2026-07-16 08:47:26,315 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 08:47:26,315 - trading_bot - INFO - Sending MARKET order request: BUY 0.001 BTCUSDT
+2026-07-16 08:47:28,257 - trading_bot - ERROR - API Exception (MARKET): 401 - API-key format invalid.
+2026-07-16 08:47:28,257 - trading_bot - ERROR - OrderService: Failed to execute MARKET order. Error: APIError(code=-2014): API-key format invalid.
+2026-07-16 08:47:28,260 - trading_bot - ERROR - Order failed: Order failed: APIError(code=-2014): API-key format invalid.
+2026-07-16 08:47:53,550 - trading_bot - INFO - Initializing trading bot CLI...
+2026-07-16 08:47:54,575 - trading_bot - INFO - Binance client initialized (Futures Testnet: True)
+2026-07-16 08:47:54,575 - trading_bot - INFO - OrderService: Validating LIMIT order for 0.001 BTCUSDT (BUY) at 50000.0
+2026-07-16 08:47:54,575 - trading_bot - INFO - OrderService: Validation passed, delegating to Binance client.
+2026-07-16 08:47:54,575 - trading_bot - INFO - Sending LIMIT order request: BUY 0.001 BTCUSDT at 50000.0
+2026-07-16 08:47:55,434 - trading_bot - ERROR - API Exception (LIMIT): 401 - API-key format invalid.
+2026-07-16 08:47:55,434 - trading_bot - ERROR - OrderService: Failed to execute LIMIT order. Error: APIError(code=-2014): API-key format invalid.
+2026-07-16 08:47:55,434 - trading_bot - ERROR - Order failed: Order failed: APIError(code=-2014): API-key format invalid.
