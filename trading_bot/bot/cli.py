@@ -1,113 +1,100 @@
 """
-Command Line Interface (CLI) entrypoint for the trading bot application.
+Command Line Interface for the Binance Trading Bot.
+Provides an interactive Typer-based CLI for executing orders.
 """
 
-import argparse
-import sys
-import os
-
-# Ensure the 'bot' package can be found when executing this file directly
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import typer
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+from typing import Optional
 
 from bot.client import BinanceClient
 from bot.orders import OrderService
 from bot.logging_config import setup_logger
-from bot.validators import OrderValidator
 
-def main():
+app = typer.Typer(help="Binance Futures Trading Bot CLI")
+console = Console()
+logger = setup_logger()
+
+@app.callback(invoke_without_command=True)
+def main(
+    symbol: str = typer.Option(None, "--symbol", "-s", help="Trading pair symbol (e.g. BTCUSDT)"),
+    side: str = typer.Option(None, "--side", help="Order side: BUY or SELL"),
+    order_type: str = typer.Option(None, "--type", "-t", help="Order type: MARKET, LIMIT, or STOP_LIMIT"),
+    quantity: float = typer.Option(None, "--quantity", "-q", help="Quantity to trade"),
+    price: float = typer.Option(None, "--price", "-p", help="Limit price (Required for LIMIT/STOP_LIMIT)"),
+    stop_price: float = typer.Option(None, "--stop-price", help="Stop trigger price (Required for STOP_LIMIT)"),
+):
     """
-    Main entry point for parsing arguments, validating inputs, and executing orders.
+    Execute a trading order. If arguments are omitted, interactive prompts will appear.
     """
-    parser = argparse.ArgumentParser(description="Binance Trading Bot CLI")
+    # Interactive Prompts if missing
+    if not symbol:
+        symbol = typer.prompt("Enter symbol (e.g. BTCUSDT)").upper()
+    if not side:
+        side = typer.prompt("Enter side (BUY/SELL)").upper()
+    if not order_type:
+        order_type = typer.prompt("Enter order type (MARKET/LIMIT/STOP_LIMIT)").upper()
+    if quantity is None:
+        quantity = typer.prompt("Enter quantity", type=float)
+
+    if order_type in ["LIMIT", "STOP_LIMIT"] and price is None:
+        price = typer.prompt("Enter limit price", type=float)
+        
+    if order_type == "STOP_LIMIT" and stop_price is None:
+        stop_price = typer.prompt("Enter stop trigger price", type=float)
+
+    # Display Order Summary
+    table = Table(title="Order Request Summary")
+    table.add_column("Parameter", style="cyan")
+    table.add_column("Value", style="magenta")
     
-    parser.add_argument("--symbol", type=str, required=True, help="Trading pair symbol (e.g., BTCUSDT)")
-    parser.add_argument("--side", type=str, required=True, choices=["BUY", "SELL"], help="Order side (BUY or SELL)")
-    parser.add_argument("--type", type=str, required=True, choices=["MARKET", "LIMIT"], help="Order type (MARKET or LIMIT)")
-    parser.add_argument("--quantity", type=float, required=True, help="Quantity to trade")
-    parser.add_argument("--price", type=float, required=False, help="Price for limit order")
-    
-    args = parser.parse_args()
-    
-    # Initialize components
-    logger = setup_logger()
-    validator = OrderValidator()
+    table.add_row("Symbol", symbol)
+    table.add_row("Side", side)
+    table.add_row("Type", order_type)
+    table.add_row("Quantity", str(quantity))
+    if order_type in ["LIMIT", "STOP_LIMIT"]:
+        table.add_row("Price", str(price))
+    if order_type == "STOP_LIMIT":
+        table.add_row("Stop Price", str(stop_price))
+        
+    console.print(table)
+    console.print("\n[yellow]Executing order...[/yellow]\n")
 
-    # 1. Print Request Summary
-    print("\n--- Order Request Summary ---")
-    print(f"Symbol:   {args.symbol}")
-    print(f"Side:     {args.side}")
-    print(f"Type:     {args.type}")
-    print(f"Quantity: {args.quantity}")
-    if args.type == "LIMIT":
-        print(f"Price:    {args.price}")
-    print("-----------------------------\n")
-
-    logger.info("Initializing trading bot CLI...")
-
-    # 2. Input Validation
-    try:
-        validator.validate_symbol(args.symbol)
-        validator.validate_side(args.side)
-        validator.validate_order_type(args.type)
-        validator.validate_quantity(args.quantity)
-        if args.type == "LIMIT":
-            validator.validate_price(args.price)
-    except ValueError as e:
-        logger.error(f"Validation Error: {e}")
-        print(f"Validation Error: {e}")
-        return
-
-    # 3. Instantiate Client and Service
     try:
         client = BinanceClient()
         order_service = OrderService(client)
     except Exception as e:
-        logger.error(f"Initialization Error: {e}")
-        print(f"Initialization Error: {e}")
-        return
-    
-    # 4. Execute Order
-    print("Executing order...\n")
-    try:
-        if args.type == "MARKET":
-            response = order_service.execute_market_order(
-                symbol=args.symbol,
-                side=args.side,
-                quantity=args.quantity
-            )
-        else:
-            response = order_service.execute_limit_order(
-                symbol=args.symbol,
-                side=args.side,
-                quantity=args.quantity,
-                price=args.price
-            )
+        console.print(Panel(f"Failed to initialize client: {str(e)}", title="Initialization Error", border_style="red"))
+        raise typer.Exit(1)
+
+    if order_type == "MARKET":
+        response = order_service.execute_market_order(symbol, side, quantity)
+    elif order_type == "LIMIT":
+        response = order_service.execute_limit_order(symbol, side, quantity, price)
+    elif order_type == "STOP_LIMIT":
+        response = order_service.execute_stop_limit_order(symbol, side, quantity, price, stop_price)
+    else:
+        console.print(Panel(f"Unsupported order type: {order_type}", title="Validation Error", border_style="red"))
+        raise typer.Exit(1)
+
+    # Display Results
+    if response.get("success"):
+        data = response.get("data", {})
+        res_table = Table(title="Order Response Details")
+        res_table.add_column("Key", style="green")
+        res_table.add_column("Value", style="bold white")
         
-        # 5. Print Response
-        if response.get("success"):
-            data = response.get("data", {})
-            print("=== Order Successful ===")
-            print(f"Order ID:    {data.get('orderId', 'N/A')}")
-            print(f"Status:      {data.get('status', 'N/A')}")
-            print(f"ExecutedQty: {data.get('executedQty', 'N/A')}")
-            # Use avgPrice if available, fallback to price
-            avg_price = data.get('avgPrice', data.get('price', 'N/A'))
-            print(f"Avg Price:   {avg_price}")
-            print("========================")
-            logger.info(f"Order completed successfully. Order ID: {data.get('orderId')}")
-        else:
-            error_msg = response.get("error", "Unknown error occurred.")
-            print("=== Order Failed ===")
-            print(f"Reason: {error_msg}")
-            print("====================")
-            logger.error(f"Order failed: {error_msg}")
-
-    except Exception as e:
-        logger.error(f"Unexpected execution error: {e}")
-        print("=== Order Failed ===")
-        print(f"Unexpected Error: {e}")
-        print("====================")
-
+        res_table.add_row("Order ID", str(data.get("orderId", "N/A")))
+        res_table.add_row("Status", str(data.get("status", "N/A")))
+        res_table.add_row("Executed Qty", str(data.get("executedQty", "N/A")))
+        res_table.add_row("Avg Price", str(data.get("avgPrice", data.get("price", "N/A"))))
+        
+        console.print(Panel(res_table, title="Order Successful", border_style="green"))
+    else:
+        console.print(Panel(response.get("error", "Unknown error"), title="Order Failed", border_style="red"))
+        raise typer.Exit(1)
 
 if __name__ == "__main__":
-    main()
+    app()

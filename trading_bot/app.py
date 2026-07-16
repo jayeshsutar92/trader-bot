@@ -49,6 +49,11 @@ def place_order():
     except (ValueError, TypeError):
         price = None
 
+    try:
+        stop_price = float(data.get("stopPrice", 0)) if data.get("stopPrice") else None
+    except (ValueError, TypeError):
+        stop_price = None
+
     # 1. Input Validation using the exact existing logic
     validator = OrderValidator()
     try:
@@ -56,8 +61,10 @@ def place_order():
         validator.validate_side(side)
         validator.validate_order_type(order_type)
         validator.validate_quantity(quantity)
-        if order_type == "LIMIT":
+        if order_type in ["LIMIT", "STOP_LIMIT"]:
             validator.validate_price(price)
+        if order_type == "STOP_LIMIT":
+            validator.validate_stop_price(stop_price)
     except ValueError as e:
         return jsonify({"success": False, "error": str(e)}), 400
 
@@ -72,8 +79,12 @@ def place_order():
     # 3. Delegate execution
     if order_type == "MARKET":
         response = order_service.execute_market_order(symbol, side, quantity)
-    else:
+    elif order_type == "LIMIT":
         response = order_service.execute_limit_order(symbol, side, quantity, price)
+    elif order_type == "STOP_LIMIT":
+        response = order_service.execute_stop_limit_order(symbol, side, quantity, price, stop_price)
+    else:
+        response = {"success": False, "error": "Unsupported order type."}
 
     # OrderService already returns {"success": bool, "data": dict, "error": str}
     status_code = 200 if response.get("success") else 400

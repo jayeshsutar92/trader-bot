@@ -1,3 +1,5 @@
 python-binance
 python-dotenv
 flask
+typer
+rich

@@ -66,8 +66,8 @@ class OrderValidator:
         if not order_type or not isinstance(order_type, str):
             raise ValueError("Order type must be a non-empty string.")
             
-        if order_type not in ["MARKET", "LIMIT"]:
-            raise ValueError(f"Invalid order type '{order_type}'. Must be 'MARKET' or 'LIMIT'.")
+        if order_type not in ["MARKET", "LIMIT", "STOP_LIMIT"]:
+            raise ValueError(f"Invalid order type '{order_type}'. Must be 'MARKET', 'LIMIT', or 'STOP_LIMIT'.")
             
         return True
 
@@ -106,7 +106,7 @@ class OrderValidator:
             ValueError: If the price is missing or not a positive numeric value.
         """
         if price is None:
-            raise ValueError("Price is required for LIMIT orders.")
+            raise ValueError("Price is required for LIMIT and STOP_LIMIT orders.")
             
         if not isinstance(price, (int, float)):
             raise ValueError("Price must be a numeric value.")
@@ -114,4 +114,27 @@ class OrderValidator:
         if price <= 0:
             raise ValueError(f"Invalid price {price}. Must be a positive number greater than zero.")
             
+        return True
+
+    def validate_stop_price(self, stop_price: float) -> bool:
+        """
+        Validate the stop price for Stop-Limit orders.
+        
+        Args:
+            stop_price (float): The trigger price.
+            
+        Returns:
+            bool: True if valid.
+            
+        Raises:
+            ValueError: If the stop price is missing or not a positive numeric value.
+        """
+        if stop_price is None:
+            raise ValueError("Stop price is required for STOP_LIMIT orders.")
+            
+        if not isinstance(stop_price, (int, float)):
+            raise ValueError("Stop price must be a numeric value.")
+            
+        if stop_price <= 0:
+            raise ValueError(f"Invalid stop price {stop_price}. Must be a positive number greater than zero.")
         return True

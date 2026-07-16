@@ -35,6 +35,7 @@
                         <select id="type" name="type">
                             <option value="MARKET">MARKET</option>
                             <option value="LIMIT">LIMIT</option>
+                            <option value="STOP_LIMIT">STOP_LIMIT</option>
                         </select>
                     </div>
                 </div>
@@ -49,6 +50,12 @@
                     <label for="price">Price (USDT)</label>
                     <input type="number" id="price" name="price" step="any" placeholder="50000">
                     <div class="error-text" id="priceError"></div>
+                </div>
+
+                <div class="form-group" id="stopPriceGroup" style="display: none;">
+                    <label for="stopPrice">Stop Price (USDT)</label>
+                    <input type="number" id="stopPrice" name="stopPrice" step="any" placeholder="51000">
+                    <div class="error-text" id="stopPriceError"></div>
                 </div>
 
                 <button type="submit" id="submitBtn">Place Order</button>

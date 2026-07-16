@@ -1,7 +1,7 @@
 # Binance Futures Trading Bot
 
 ## Project Overview
-This project is a clean, structured command-line interface (CLI) application for executing trading orders on the Binance Futures Testnet. Built with pure Python, it emphasizes separation of concerns, clean architecture, and readability. It includes dedicated modules for API communication, business logic orchestration, robust input validation, and centralized logging.
+This project is a clean, structured command-line interface (CLI) and web application for executing trading orders on the Binance Futures Testnet. Built with pure Python, it emphasizes separation of concerns, clean architecture, and readability. It includes dedicated modules for API communication, business logic orchestration, robust input validation, centralized logging, and interactive UI paradigms (Rich Typer CLI + Flask Web UI).
 
 ## Prerequisites
 - Python 3.8+
@@ -14,12 +14,14 @@ trading_bot/
 │
 ├── bot/
 │   ├── __init__.py         # Package initialization
-│   ├── cli.py              # Command-line interface entry point
+│   ├── cli.py              # Command-line interface entry point (Typer + Rich)
 │   ├── client.py           # Direct communication with Binance API
 │   ├── logging_config.py   # Centralized logging setup
 │   ├── orders.py           # Business logic for order execution
 │   └── validators.py       # Input validation rules
 │
+├── frontend/               # Vanilla HTML/CSS/JS web UI
+├── app.py                  # Flask web server API wrapper
 ├── logs/                   # Directory containing application logs (auto-generated)
 ├── .env                    # Secret environment variables (ignored in version control)
 ├── .env.example            # Template for environment variables
@@ -59,26 +61,46 @@ The application reads sensitive credentials from a `.env` file to ensure securit
    ```
 2. Open the `.env` file and replace the placeholder text with your actual Binance Futures Testnet API Key and Secret.
 
-## CLI Usage
+## Interfaces
 
-The bot is executed from the command line by running the `bot.cli` module. It accepts the following arguments:
+### 1. Web UI
+Start the web interface by running the Flask server:
+```bash
+python app.py
+```
+Then navigate to `http://127.0.0.1:5000` in your web browser.
+
+### 2. Interactive CLI
+The bot provides an interactive, beautiful CLI powered by Typer and Rich.
+
+Run without any arguments to be seamlessly prompted for inputs:
+```bash
+python -m bot.cli
+```
+
+### 3. Argument-based CLI
+You can bypass prompts by passing arguments directly:
 
 - `--symbol`: The trading pair symbol (e.g., BTCUSDT). **Required**.
 - `--side`: The order side (BUY or SELL). **Required**.
-- `--type`: The order type (MARKET or LIMIT). **Required**.
+- `--type`: The order type (MARKET, LIMIT, STOP_LIMIT). **Required**.
 - `--quantity`: The amount of the asset to trade. Must be greater than 0. **Required**.
-- `--price`: The limit price. **Required** only if the type is LIMIT.
+- `--price`: The limit price. **Required** only if the type is LIMIT or STOP_LIMIT.
+- `--stop-price`: The stop trigger price. **Required** only if the type is STOP_LIMIT.
 
-### Example MARKET Command
-Execute an immediate market order:
+**Example MARKET Command**
 ```bash
 python -m bot.cli --symbol BTCUSDT --side BUY --type MARKET --quantity 0.001
 ```
 
-### Example LIMIT Command
-Place a limit order at a specific price:
+**Example LIMIT Command**
 ```bash
 python -m bot.cli --symbol BTCUSDT --side BUY --type LIMIT --quantity 0.001 --price 50000
+```
+
+**Example STOP-LIMIT Command**
+```bash
+python -m bot.cli --symbol BTCUSDT --side BUY --type STOP_LIMIT --quantity 0.001 --price 50000 --stop-price 51000
 ```
 
 ## Assumptions

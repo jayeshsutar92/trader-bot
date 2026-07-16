@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const quantityInput = document.getElementById('quantity');
     const priceInput = document.getElementById('price');
     const priceGroup = document.getElementById('priceGroup');
+    const stopPriceInput = document.getElementById('stopPrice');
+    const stopPriceGroup = document.getElementById('stopPriceGroup');
     const submitBtn = document.getElementById('submitBtn');
 
     const feedbackContainer = document.getElementById('feedbackContainer');
@@ -12,9 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const feedbackMessage = document.getElementById('feedbackMessage');
     const orderDetails = document.getElementById('orderDetails');
     
-    // Toggle Price field based on Order Type
+    // Toggle Price and Stop Price fields based on Order Type
     typeSelect.addEventListener('change', () => {
-        if (typeSelect.value === 'LIMIT') {
+        if (typeSelect.value === 'LIMIT' || typeSelect.value === 'STOP_LIMIT') {
             priceGroup.style.display = 'block';
             priceInput.required = true;
         } else {
@@ -22,6 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
             priceInput.required = false;
             priceInput.value = '';
             document.getElementById('priceError').innerText = '';
+        }
+
+        if (typeSelect.value === 'STOP_LIMIT') {
+            stopPriceGroup.style.display = 'block';
+            stopPriceInput.required = true;
+        } else {
+            stopPriceGroup.style.display = 'none';
+            stopPriceInput.required = false;
+            stopPriceInput.value = '';
+            document.getElementById('stopPriceError').innerText = '';
         }
         validateForm();
     });
@@ -54,11 +66,23 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const validatePrice = () => {
-        if (typeSelect.value !== 'LIMIT') return true;
+        if (typeSelect.value !== 'LIMIT' && typeSelect.value !== 'STOP_LIMIT') return true;
         const val = parseFloat(priceInput.value);
         const err = document.getElementById('priceError');
         if (isNaN(val) || val <= 0) {
-            err.innerText = 'Price must be greater than zero for LIMIT orders.';
+            err.innerText = 'Price must be greater than zero.';
+            return false;
+        }
+        err.innerText = '';
+        return true;
+    };
+
+    const validateStopPrice = () => {
+        if (typeSelect.value !== 'STOP_LIMIT') return true;
+        const val = parseFloat(stopPriceInput.value);
+        const err = document.getElementById('stopPriceError');
+        if (isNaN(val) || val <= 0) {
+            err.innerText = 'Stop Price must be greater than zero.';
             return false;
         }
         err.innerText = '';
@@ -69,8 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const isSymbolValid = validateSymbol();
         const isQtyValid = validateQuantity();
         const isPriceValid = validatePrice();
+        const isStopPriceValid = validateStopPrice();
         
-        submitBtn.disabled = !(isSymbolValid && isQtyValid && isPriceValid);
+        submitBtn.disabled = !(isSymbolValid && isQtyValid && isPriceValid && isStopPriceValid);
     };
 
     // Attach validation events
@@ -80,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     quantityInput.addEventListener('input', validateForm);
     priceInput.addEventListener('input', validateForm);
+    stopPriceInput.addEventListener('input', validateForm);
 
     // Form submission
     form.addEventListener('submit', async (e) => {
@@ -98,7 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
             side: document.getElementById('side').value,
             type: typeSelect.value,
             quantity: quantityInput.value,
-            price: typeSelect.value === 'LIMIT' ? priceInput.value : null
+            price: (typeSelect.value === 'LIMIT' || typeSelect.value === 'STOP_LIMIT') ? priceInput.value : null,
+            stopPrice: typeSelect.value === 'STOP_LIMIT' ? stopPriceInput.value : null
         };
 
         try {

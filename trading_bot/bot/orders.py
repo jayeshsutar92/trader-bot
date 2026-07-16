@@ -122,3 +122,49 @@ class OrderService:
         except Exception as e:
             logger.error(f"OrderService: Failed to execute LIMIT order. Error: {str(e)}")
             return self._create_response(False, error_message=f"Order failed: {str(e)}")
+
+    def execute_stop_limit_order(self, symbol: str, side: str, quantity: float, price: float, stop_price: float) -> dict:
+        """
+        Validate inputs and execute a stop-limit order.
+
+        Args:
+            symbol (str): The trading pair symbol.
+            side (str): The order side.
+            quantity (float): The amount to trade.
+            price (float): The limit price.
+            stop_price (float): The trigger price.
+
+        Returns:
+            dict: A standard response dictionary containing success status, data, or error message.
+        """
+        logger.info(f"OrderService: Validating STOP_LIMIT order for {quantity} {symbol} ({side}) at limit {price}, stop {stop_price}")
+        
+        # 1. Input Validation
+        if not self.validator.validate_symbol(symbol):
+            logger.warning(f"OrderService: Invalid symbol '{symbol}'")
+            return self._create_response(False, error_message="Invalid symbol provided.")
+            
+        if not self.validator.validate_side(side):
+            logger.warning(f"OrderService: Invalid side '{side}'")
+            return self._create_response(False, error_message="Invalid side provided. Must be BUY or SELL.")
+            
+        if not self.validator.validate_quantity(quantity):
+            logger.warning(f"OrderService: Invalid quantity '{quantity}'")
+            return self._create_response(False, error_message="Invalid quantity. Must be greater than zero.")
+            
+        if not self.validator.validate_price(price):
+            logger.warning(f"OrderService: Invalid price '{price}'")
+            return self._create_response(False, error_message="Invalid price. Must be greater than zero.")
+
+        if not self.validator.validate_stop_price(stop_price):
+            logger.warning(f"OrderService: Invalid stop price '{stop_price}'")
+            return self._create_response(False, error_message="Invalid stop price. Must be greater than zero.")
+
+        # 2. Execution and Exception Handling
+        try:
+            logger.info("OrderService: Validation passed, delegating to Binance client.")
+            response = self.client.place_stop_limit_order(symbol, side, quantity, price, stop_price)
+            return self._create_response(True, data=response)
+        except Exception as e:
+            logger.error(f"OrderService: Failed to execute STOP_LIMIT order. Error: {str(e)}")
+            return self._create_response(False, error_message=f"Order failed: {str(e)}")

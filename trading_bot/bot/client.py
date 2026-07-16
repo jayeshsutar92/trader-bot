@@ -125,3 +125,33 @@ class BinanceClient:
             return response
         except Exception as e:
             self._handle_exception(e, "LIMIT")
+
+    def place_stop_limit_order(self, symbol: str, side: str, quantity: float, price: float, stop_price: float) -> dict:
+        """
+        Place a stop-limit order on Binance Futures.
+
+        Args:
+            symbol (str): The trading pair symbol.
+            side (str): The order side ('BUY' or 'SELL').
+            quantity (float): The amount to trade.
+            price (float): The limit price.
+            stop_price (float): The trigger price.
+
+        Returns:
+            dict: The parsed JSON response from the Binance API.
+        """
+        logger.info(f"Sending STOP_LIMIT order request: {side} {quantity} {symbol} at limit {price}, stop {stop_price}")
+        try:
+            response = self.client.futures_create_order(
+                symbol=symbol,
+                side=side,
+                type='STOP',
+                timeInForce='GTC',
+                quantity=quantity,
+                price=price,
+                stopPrice=stop_price
+            )
+            logger.info(f"STOP_LIMIT order successful. Response: {response}")
+            return response
+        except Exception as e:
+            self._handle_exception(e, "STOP_LIMIT")
